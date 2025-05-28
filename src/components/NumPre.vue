@@ -22,7 +22,7 @@
     );
 
     const retry = () => {
-        router.push({ path: '/game', query: { r: String(Date.now()) } });
+        router.push({ path: '/ojt_nakamura/game', query: { r: String(Date.now()) } });
     }
 
     const gotoselect = () => {
