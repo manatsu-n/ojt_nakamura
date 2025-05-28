@@ -26,7 +26,7 @@
     }
 
     const gotoselect = () => {
-        router.push('/');
+        router.push('/ojt_nakamura/');
     };
 </script>
 

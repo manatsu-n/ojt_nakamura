@@ -2,7 +2,7 @@
     import {ref, computed , onMounted, onUnmounted} from "vue"
     import { useNumberStore, usekesigomuStore, usehintoStore, useWrongStore, useMemoStore } from "../stores/level";
     import kesigomuimg from '../assets/kesigomu.png';
-    import memoimg from '../assets/memo.png';
+    import memoimg from '.npm./assets/memo.png';
     import hintoimg from '../assets/hinto.png';
     
     const elapsed = ref(0)
