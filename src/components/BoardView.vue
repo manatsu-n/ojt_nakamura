@@ -1,9 +1,6 @@
 <script setup lang="ts">
     import {ref, computed , onMounted, onUnmounted} from "vue"
     import { useNumberStore, usekesigomuStore, usehintoStore, useWrongStore, useMemoStore } from "../stores/level";
-    import kesigomuimg from '../assets/kesigomu.png';
-    import memoimg from '../assets/memo.png';
-    import hintoimg from '../assets/hinto.png';
     
     const elapsed = ref(0)
     let timer:number = 0
@@ -64,14 +61,14 @@
         <section>
             <ol>
                 <li>
-                    <img :src="kesigomuimg" alt="消しゴム" @click="kesu">
+                    <img src="/kesigomu.png" alt="消しゴム" @click="kesu" />
                 </li>
                 <li>
-                    <img :src="memoimg" alt="メモ" @click="memoswitch">
+                    <img src="/public/memo.png" alt="メモ" @click="memoswitch">
                     <span id="memo">{{ memo.onoff }}</span>
                 </li>
                 <li>
-                    <img :src="hintoimg" alt="ヒント"  @click="decreasehinto">
+                    <img src="/public/hinto.png" alt="ヒント"  @click="decreasehinto">
                     <span id="hinto">{{  hintoStore.hinto }}</span>
                 </li>
             </ol>
