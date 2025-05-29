@@ -6,7 +6,7 @@
   const router = useRouter();
   const gotogame = (difficulty:string) => {
     levelStore.setLevel(difficulty)
-    router.push('/ojt_nakamura/game');
+    router.push('/game');
   };
 
 </script>
