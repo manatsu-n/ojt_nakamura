@@ -3,8 +3,8 @@ import select from './components/SelectPage.vue';
 import game from './components/NumPre.vue';
 
 const routes = [
-  { path: '/ojt_nakamura/', name: 'Select', component: select },
-  { path: '/ojt_nakamura/game', name: 'Game', component: game }
+  { path: '/', name: 'Select', component: select },
+  { path: '/game', name: 'Game', component: game }
 ];
 
 const router = createRouter({
