@@ -5,7 +5,7 @@
     import memoimg from '../assets/memo.png';
     import hintoimg from '../assets/hinto.png';
     
-    const elapsed = ref(0)
+    const elapsed = ref<number>(0)
     let timer:number = 0
 
     onMounted(() => {

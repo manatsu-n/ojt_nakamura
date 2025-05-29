@@ -4,8 +4,8 @@
     import Puzzle from "../logic/PuzzleQuestion.vue"
     import { useRouter } from 'vue-router';
     import { useWrongStore, useClearflagStore } from "../stores/level";
-    const gameover = ref(false);
-    const gameclear = ref(false);
+    const gameover = ref<boolean>(false);
+    const gameclear = ref<boolean>(false);
     const router = useRouter();
     const wrongStore = useWrongStore();
     const flagStore = useClearflagStore();

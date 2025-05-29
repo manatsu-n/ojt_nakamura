@@ -41,7 +41,7 @@
         }
     });
 
-    const activeCell = ref({ row: 1, col: 1 })
+    const activeCell = ref<{row:number, col: number}>({ row: 1, col: 1 })
     const cellINdex = computed(() =>
         (activeCell.value.row - 1) * 9 + (activeCell.value.col - 1) + 1
     );
