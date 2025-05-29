@@ -1,16 +1,22 @@
 <script setup lang="ts">
     import {ref, computed , onMounted, onUnmounted} from "vue"
-    import { useNumberStore, usekesigomuStore, usehintoStore, useWrongStore, useMemoStore } from "../stores/level";
+    import { useNumberStore, usekesigomuStore, usehintoStore, useWrongStore, useMemoStore, useClearflagStore } from "../stores/level";
     import kesigomuimg from '../assets/kesigomu.png';
     import memoimg from '../assets/memo.png';
     import hintoimg from '../assets/hinto.png';
     
     const elapsed = ref<number>(0)
     let timer:number = 0
-
+    const flagStore = useClearflagStore();
     onMounted(() => {
         timer = setInterval(() => {
             elapsed.value++
+            if (wrongStore.wrong >= 3){
+                clearInterval(timer)
+            }
+            if(flagStore.flag){
+                clearInterval(timer)
+            }
         }, 1000)
     })
     

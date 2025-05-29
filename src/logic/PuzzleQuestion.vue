@@ -32,7 +32,7 @@
     const flagStore = useClearflagStore()
     flagStore.flag=false;
     const filledCount = computed(() => {
-    return Object.entries(cells.value).filter(val => val !== null ).length;
+        return Object.entries(cells.value).filter(val => val !== null ).length;
     });
 
     watch(filledCount, (newVal) => {
@@ -87,7 +87,7 @@
     watch(
         () => numberStore.number,
         (newnumber) => {
-            if (newnumber === null) return;
+            if (newnumber === null || flagStore.flag || wrongStore.wrong >= 3) return;
             if (!readonlyFlags.value[key.value]){
                 if (memo.onoff==="on"){
                     if (!memos.value[key.value]){
@@ -149,17 +149,17 @@
     const hintoStore = usehintoStore()
     hintoStore.hinto=3
     watch(
-    () => hintoStore.hinto,
-    (newVal, oldVal) => {
-        if(newVal > oldVal) return;
-        if (readonlyFlags.value[key.value] === false){
-            cells.value[key.value] = cstore.answer[cellINdex.value-1];
-            readonlyFlags.value[key.value] = true;
-        } else {
-            hintoStore.hinto = oldVal
+        () => hintoStore.hinto,
+        (newVal, oldVal) => {
+            if(newVal > oldVal) return;
+            if (readonlyFlags.value[key.value] === false){
+                cells.value[key.value] = cstore.answer[cellINdex.value-1];
+                readonlyFlags.value[key.value] = true;
+            } else {
+                hintoStore.hinto = oldVal
+            }
         }
-    }
-)
+    )
 </script>
 
 <template>
