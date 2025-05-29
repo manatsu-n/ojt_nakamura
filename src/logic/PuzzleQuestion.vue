@@ -32,10 +32,16 @@
     const flagStore = useClearflagStore()
     flagStore.flag=false;
     const filledCount = computed(() => {
-        return Object.entries(cells.value).filter(val => val !== null ).length;
+        return Object.entries(cells.value).filter(([key, val]) => {
+            if (val === undefined) return false;
+
+            const index = Number(key.replace('cell', '')) - 1;
+            return val === cstore.answer[index];
+        }).length;
     });
 
     watch(filledCount, (newVal) => {
+        console.log('filledCount:', newVal);
         if (newVal === 81) {
             flagStore.flag = true;
         }
