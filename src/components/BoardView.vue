@@ -39,6 +39,7 @@
 
     const hintoStore = usehintoStore()
     function decreasehinto(){
+        if (flagStore.flag || wrongStore.wrong >= 3) return;
         if (hintoStore.hinto>0){
             hintoStore.hinto--;
         }

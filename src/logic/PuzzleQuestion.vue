@@ -138,6 +138,7 @@
     watch(
         () => kesiStore.kesi,
         () => {
+            if(flagStore.flag || wrongStore.wrong >= 3) return;
             if (readonlyFlags.value[key.value] === false){
                 cells.value[key.value] = undefined;
                 memos.value[key.value] = new Set<number>();
