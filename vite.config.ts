@@ -20,6 +20,6 @@ export default defineConfig({
     outDir: 'docs',
   },
   
-  base: 'ojt_nakamura',
+  base: '/ojt_nakamura/',
 
 })
