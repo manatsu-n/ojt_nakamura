@@ -11,10 +11,7 @@
     onMounted(() => {
         timer = setInterval(() => {
             elapsed.value++
-            if (wrongStore.wrong >= 3){
-                clearInterval(timer)
-            }
-            if(flagStore.flag){
+            if (wrongStore.wrong >= 3 || flagStore.flag) {
                 clearInterval(timer)
             }
         }, 1000)

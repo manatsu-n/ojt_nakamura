@@ -90,43 +90,55 @@
             if (newnumber === null || flagStore.flag || wrongStore.wrong >= 3) return;
             if (!readonlyFlags.value[key.value]){
                 if (memo.onoff==="on"){
-                    if (!memos.value[key.value]){
-                        memos.value[key.value] = new Set<number>();
-                    }
-                    const memoSet = memos.value[key.value]!;
-                    if (memoSet.has(newnumber)) {
-                        memoSet.delete(newnumber);
-                    } else {
-                        memoSet.add(newnumber);
-                    }
+                    memoInput(newnumber);
                 }else{
-                    if (cells.value[key.value] === newnumber){
-                        cells.value[key.value] = undefined;
-                    }else{
-                        cells.value[key.value] = newnumber;
-                        if (cstore.answer[cellINdex.value - 1] !== newnumber) {
-                            wrongStore.wrong++; 
-                        }else{
-                            for (let i = 1; i <= 81; i++) {
-                                const row = Math.floor((i - 1) / 9) + 1;
-                                const col = (i - 1) % 9 + 1;
-                                const key2 = `cell${i}`;
-
-                                const sameRow = row === activeCell.value.row;
-                                const sameCol = col === activeCell.value.col;
-                                const sameBlock = rowBlock.value.includes(row) && colBlock.value.includes(col);
-
-                                if (sameRow || sameCol || sameBlock) {
-                                    memos.value[key2]?.delete(newnumber);
-                                }
-                            }
-                        }
-                    }
+                    numberInput(newnumber);
                 }
             }
             numberStore.number=null
         }
     )
+
+    function memoInput(num: number) {
+        if (readonlyFlags.value[key.value]) return;
+        if (!memos.value[key.value]) {
+            memos.value[key.value] = new Set<number>();
+        }
+        if (memos.value[key.value].has(num)) {
+            memos.value[key.value].delete(num);
+        } else {
+            memos.value[key.value].add(num);
+        }
+    }
+
+    function numberInput(num: number) {
+        if (cells.value[key.value] === num) {
+            cells.value[key.value] = undefined;
+        }else{
+            cells.value[key.value] = num;
+            if (cstore.answer[cellINdex.value - 1] !== num) {
+                wrongStore.wrong++; 
+            }else{
+                removeRelatedMemos(num);
+            }
+        }
+    }
+
+    function removeRelatedMemos(num: number) {
+        for (let i = 1; i <= 81; i++) {
+            const row = Math.floor((i - 1) / 9) + 1;
+            const col = (i - 1) % 9 + 1;
+            const key2 = `cell${i}`;
+
+            const sameRow = row === activeCell.value.row;
+            const sameCol = col === activeCell.value.col;
+            const sameBlock = rowBlock.value.includes(row) && colBlock.value.includes(col);
+
+            if (sameRow || sameCol || sameBlock) {
+                memos.value[key2]?.delete(num);
+            }
+        }
+    }
 
     function getColorClass(row: number, col: number) {
     const index = (row - 1) * 9 + col;
@@ -160,6 +172,7 @@
             if (readonlyFlags.value[key.value] === false){
                 cells.value[key.value] = cstore.answer[cellINdex.value-1];
                 readonlyFlags.value[key.value] = true;
+                removeRelatedMemos(cstore.answer[cellINdex.value - 1]);
             } else {
                 hintoStore.hinto = oldVal
             }
