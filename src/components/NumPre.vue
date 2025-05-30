@@ -12,7 +12,7 @@
     watch(
         [() => wrongStore.wrong, () => flagStore.flag],
         ([newWrong, newFlag]) => {
-            if (newWrong === 3) {
+            if (newWrong >= 3) {
                 gameover.value = true;
             }
             if (newFlag) {

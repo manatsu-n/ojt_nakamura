@@ -21,12 +21,8 @@
     const readonlyFlags = ref<{ [key: string]: boolean }>({});
     for (let i = 1; i <= 81; i++) {
         const key = `cell${i}`;
-        if (cstore.create[i-1]!==0){
-            cells.value[key] = cstore.create[i-1];
-            readonlyFlags.value[key] = true;
-        }else{
-            readonlyFlags.value[key] = false;
-        }
+        readonlyFlags.value[key] = cstore.create[i - 1] !== 0;
+        cells.value[key] = cstore.create[i - 1] !== 0 ? cstore.create[i - 1] : undefined;
     }
 
     const flagStore = useClearflagStore()
@@ -34,14 +30,12 @@
     const filledCount = computed(() => {
         return Object.entries(cells.value).filter(([key, val]) => {
             if (val === undefined) return false;
-
             const index = Number(key.replace('cell', '')) - 1;
             return val === cstore.answer[index];
         }).length;
     });
 
     watch(filledCount, (newVal) => {
-        console.log('filledCount:', newVal);
         if (newVal === 81) {
             flagStore.flag = true;
         }
@@ -106,21 +100,25 @@
                         memoSet.add(newnumber);
                     }
                 }else{
-                    cells.value[key.value] = newnumber;
-                    if (cstore.answer[cellINdex.value - 1] !== newnumber) {
-                        wrongStore.wrong++; 
+                    if (cells.value[key.value] === newnumber){
+                        cells.value[key.value] = undefined;
                     }else{
-                        for (let i = 1; i <= 81; i++) {
-                            const row = Math.floor((i - 1) / 9) + 1;
-                            const col = (i - 1) % 9 + 1;
-                            const key2 = `cell${i}`;
+                        cells.value[key.value] = newnumber;
+                        if (cstore.answer[cellINdex.value - 1] !== newnumber) {
+                            wrongStore.wrong++; 
+                        }else{
+                            for (let i = 1; i <= 81; i++) {
+                                const row = Math.floor((i - 1) / 9) + 1;
+                                const col = (i - 1) % 9 + 1;
+                                const key2 = `cell${i}`;
 
-                            const sameRow = row === activeCell.value.row;
-                            const sameCol = col === activeCell.value.col;
-                            const sameBlock = rowBlock.value.includes(row) && colBlock.value.includes(col);
+                                const sameRow = row === activeCell.value.row;
+                                const sameCol = col === activeCell.value.col;
+                                const sameBlock = rowBlock.value.includes(row) && colBlock.value.includes(col);
 
-                            if (sameRow || sameCol || sameBlock) {
-                                memos.value[key2]?.delete(newnumber);
+                                if (sameRow || sameCol || sameBlock) {
+                                    memos.value[key2]?.delete(newnumber);
+                                }
                             }
                         }
                     }
@@ -195,8 +193,9 @@
                         <div class="memo-grid">
                             <span
                                 v-for="n in 9" :key="n"
-                                class="memo-num">
-                                    {{ memos[`cell${(row-1)*9+col}`]?.has(n)?n:`` }}
+                                class="memo-num"
+                            >
+                                {{ memos[`cell${(row-1)*9+col}`]?.has(n)?n:`` }}
                             </span>
                         </div>
                     </template>
