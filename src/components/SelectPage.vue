@@ -32,7 +32,7 @@
     display: block;
     margin: 50px auto;
     font-size: 200%;
-    width: 110px;
+    width: 150px;
     padding: 0;
   }
 
