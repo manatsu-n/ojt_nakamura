@@ -285,4 +285,15 @@
         justify-content: center;
         display: flex;
     }
+    @media (max-width: 600px) {
+        td {
+            height: 30px;
+            width: 30px;
+            font-size: 100%;
+        }
+        .memo-grid {
+            font-size: 6px;
+        }
+        
+    }
 </style>

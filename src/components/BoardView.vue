@@ -56,41 +56,43 @@
 
 <template>
     <div class="Board">
-        <section class="up">
-            <div>
-                間違い:
-                {{ wrongStore.wrong }}/3
-            </div>
-            <div>
-                経過時間： {{ minsec }}
-            </div>
-        </section>
-        <section>
-            <ol>
-                <li>
-                    <img :src="kesigomuimg" alt="消しゴム" @click="kesu">
-                </li>
-                <li>
-                    <img :src="memoimg" alt="メモ" @click="memoswitch">
-                    <span id="memo">{{ memo.onoff }}</span>
-                </li>
-                <li>
-                    <img :src="hintoimg" alt="ヒント"  @click="decreasehinto">
-                    <span id="hinto">{{  hintoStore.hinto }}</span>
-                </li>
-            </ol>
-        </section>
-        <section>
-            <table>
-                <tr v-for="r in 3" :key="r">
-                    <td v-for="c in 3" :key="c">
-                        <button @click="pushnum((r - 1) * 3 + c)"> 
-                            {{ (r - 1) * 3 + c }}
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </section>
+            <section class="up">
+                <div>
+                    間違い:
+                    {{ wrongStore.wrong }}/3
+                </div>
+                <div>
+                    経過時間： {{ minsec }}
+                </div>
+            </section>
+        <div class="board">
+            <section>
+                <ol>
+                    <li>
+                        <img :src="kesigomuimg" alt="消しゴム" @click="kesu">
+                    </li>
+                    <li>
+                        <img :src="memoimg" alt="メモ" @click="memoswitch">
+                        <span id="memo">{{ memo.onoff }}</span>
+                    </li>
+                    <li>
+                        <img :src="hintoimg" alt="ヒント"  @click="decreasehinto">
+                        <span id="hinto">{{  hintoStore.hinto }}</span>
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <table>
+                    <tr v-for="r in 3" :key="r">
+                        <td v-for="c in 3" :key="c">
+                            <button @click="pushnum((r - 1) * 3 + c)"> 
+                                {{ (r - 1) * 3 + c }}
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -148,5 +150,32 @@
         height: 90px;
         width: 90px;
         font-size: 250%;
+    }
+
+    @media (max-width: 600px) {
+        .board{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        img{
+            height: 50px;
+            width: 50px;
+            margin: 5px;
+        }
+        button{
+            height: 65px;
+            width: 65px;
+            font-size: 200%;
+        }
+        ol{
+            flex-flow: column;
+            width: 60px;
+            margin: 5px;
+        }
+        .board>section{
+            display: flex;
+            margin: 0;
+        }
     }
 </style>
