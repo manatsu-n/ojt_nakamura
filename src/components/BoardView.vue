@@ -157,22 +157,26 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+
         }
         img{
             height: 50px;
             width: 50px;
             margin: 5px;
         }
+
         button{
             height: 65px;
             width: 65px;
             font-size: 200%;
         }
+
         ol{
             flex-flow: column;
             width: 60px;
             margin: 5px;
         }
+        
         .board>section{
             display: flex;
             margin: 0;

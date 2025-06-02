@@ -33,6 +33,7 @@
     margin: 50px auto;
     font-size: 200%;
     width: 110px;
+    text-align: center;
   }
 
   #app{

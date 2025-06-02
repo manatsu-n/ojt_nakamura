@@ -100,17 +100,21 @@
         header {
             margin: 5px;
         }
+
         .numpre {
             flex-direction: column;
             align-items: center;
         }
+
         .modal {
             width: 90%;
             height: auto;
         }
+
         h1{
             margin-top: 30px;
         }
+        
         .modal>button{
             margin-bottom: 25px;
         }    

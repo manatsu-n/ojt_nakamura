@@ -1,5 +1,5 @@
 import { useCreateStore, useLevelStore } from '../stores/level.ts';
-import {watch} from "vue"
+import { watch } from "vue"
 import { puzzles } from './puzzle.ts';
 
 
@@ -15,7 +15,6 @@ export function usePuzzleGenerator() {
       const newPuzzle = puzzles.find(x => x.level === newLevel)
       if (!newPuzzle) return;
       const puzzleList = newPuzzle.puzzles;
-      if (!newPuzzle) return;
       if (newLevel === null) return;
       let rawCreate = [...puzzleList[x].create];
       let rawAnswer = [...puzzleList[x].answer];

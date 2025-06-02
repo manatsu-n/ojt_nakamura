@@ -219,10 +219,6 @@
 </template>
 
 <style scoped>
-    .Puzzle{
-        outline: none;
-    }
-    
     td {
         border: 1px solid black;
         height: 45px;
@@ -285,15 +281,16 @@
         justify-content: center;
         display: flex;
     }
+
     @media (max-width: 600px) {
         td {
             height: 30px;
             width: 30px;
             font-size: 100%;
         }
+
         .memo-grid {
             font-size: 6px;
         }
-        
     }
 </style>
