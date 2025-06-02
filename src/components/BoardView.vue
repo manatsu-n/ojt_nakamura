@@ -169,6 +169,7 @@
             height: 65px;
             width: 65px;
             font-size: 200%;
+            justify-content: center; 
         }
 
         ol{
@@ -176,7 +177,7 @@
             width: 60px;
             margin: 5px;
         }
-        
+
         .board>section{
             display: flex;
             margin: 0;

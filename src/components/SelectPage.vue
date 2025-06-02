@@ -34,6 +34,7 @@
     font-size: 200%;
     width: 150px;
     padding: 0;
+    justify-content: center; 
   }
 
   #app{
