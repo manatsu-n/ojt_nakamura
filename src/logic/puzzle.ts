@@ -1,3 +1,5 @@
+import { LEVELS } from './constant.ts';
+
 export const easyPuzzles = [
   {
     create: [
@@ -220,5 +222,20 @@ export const hardPuzzles = [
       5,2,7,6,4,9,3,8,1,
       1,6,3,8,2,7,4,5,9
     ]         
+  }
+];
+
+export const puzzles = [
+  {
+    level: LEVELS.EASY,
+    puzzles: easyPuzzles
+  },
+  {
+    level: LEVELS.NORMAL,
+    puzzles: normalPuzzles
+  },
+  {
+    level: LEVELS.HARD,
+    puzzles: hardPuzzles
   }
 ];

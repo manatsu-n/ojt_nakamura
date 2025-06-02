@@ -1,6 +1,6 @@
 import { useCreateStore, useLevelStore } from '../stores/level.ts';
 import {watch} from "vue"
-import { easyPuzzles, hardPuzzles, normalPuzzles } from './puzzle.ts';
+import { puzzles } from './puzzle.ts';
 
 
 export function usePuzzleGenerator() {
@@ -10,20 +10,16 @@ export function usePuzzleGenerator() {
   watch(
     () => levelStore.level,
     (newLevel) => {
-      if (newLevel === null) return;
+      if (!newLevel) return;
       const x = Math.floor(3*Math.random())
-      let rawCreate: number[] = [];
-      let rawAnswer: number[] = []; 
-      if (newLevel === 'easy') {
-        rawCreate = easyPuzzles[x].create;
-        rawAnswer = easyPuzzles[x].answer;
-      } else if (newLevel === 'normal') {
-        rawCreate = normalPuzzles[x].create;
-        rawAnswer = normalPuzzles[x].answer;
-      } else {
-        rawCreate = hardPuzzles[x].create;
-        rawAnswer = hardPuzzles[x].answer;
-      }
+      const newPuzzle = puzzles.find(x => x.level === newLevel)
+      if (!newPuzzle) return;
+      const puzzleList = newPuzzle.puzzles;
+      if (!newPuzzle) return;
+      if (newLevel === null) return;
+      let rawCreate = [...puzzleList[x].create];
+      let rawAnswer = [...puzzleList[x].answer];
+      
       
       if (Math.random()<0.5){
         rawCreate.reverse();
