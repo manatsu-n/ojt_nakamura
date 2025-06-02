@@ -9,6 +9,11 @@
     router.push('/game');
   };
 
+  const gotogamerandom = () => {
+    levelStore.setLevel('random')
+    router.push('/game');
+  };
+
 </script>
 
 <template>
@@ -19,6 +24,7 @@
   <button class="button" @click="gotogame('easy')">easy</button>
   <button class="button" @click="gotogame('normal')">normal</button>
   <button class="button" @click="gotogame('hard')">hard</button>
+  <button class="button" @click="gotogamerandom">random</button>
   </div>
 </template>
 
@@ -34,6 +40,7 @@
     font-size: 200%;
     width: 150px;
     padding: 0;
+    justify-content: center; 
   }
 
   #app{

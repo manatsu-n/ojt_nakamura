@@ -96,7 +96,7 @@
         height: 30px;
     }    
 
-    @media (max-width: 600px) {
+    @media (max-width: 770px) {
         header {
             margin: 5px;
         }
@@ -114,7 +114,7 @@
         h1{
             margin-top: 30px;
         }
-        
+
         .modal>button{
             margin-bottom: 25px;
         }    
