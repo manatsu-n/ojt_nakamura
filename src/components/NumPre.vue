@@ -32,7 +32,7 @@
 
 <template>
     <div class="numpre">
-        <div>
+        <div class="left">
             <header>
                 <button @click="gotoselect">難易度選択に戻る</button>
             </header>
@@ -58,6 +58,10 @@
 </template>
 
 <style scoped>
+    .left{
+        margin-right: 25px
+    }
+    
     header{
         display: block;
         margin: 15px;
@@ -97,6 +101,10 @@
     }    
 
     @media (max-width: 770px) {
+        .left {
+            margin-right: 0;
+        }
+
         header {
             margin: 5px;
         }

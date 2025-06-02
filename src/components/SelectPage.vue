@@ -5,12 +5,7 @@
   const levelStore = useLevelStore();
   const router = useRouter();
   const gotogame = (difficulty:string) => {
-    levelStore.setLevel(difficulty)
-    router.push('/game');
-  };
-
-  const gotogamerandom = () => {
-    levelStore.setLevel('random')
+    levelStore.setLevel(difficulty);
     router.push('/game');
   };
 
@@ -24,7 +19,6 @@
   <button class="button" @click="gotogame('easy')">easy</button>
   <button class="button" @click="gotogame('normal')">normal</button>
   <button class="button" @click="gotogame('hard')">hard</button>
-  <button class="button" @click="gotogamerandom">random</button>
   </div>
 </template>
 

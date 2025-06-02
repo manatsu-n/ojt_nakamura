@@ -182,5 +182,10 @@
             display: flex;
             margin: 0;
         }
+
+        #hinto{
+        top: 0;
+        right: 3px;
+        }
     }
 </style>

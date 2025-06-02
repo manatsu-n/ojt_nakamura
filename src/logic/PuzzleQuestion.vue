@@ -2,7 +2,6 @@
     import { ref, computed, watch, onMounted } from "vue"
     import { useCreateStore, useNumberStore, usekesigomuStore, usehintoStore, useWrongStore, useClearflagStore, useMemoStore } from "../stores/level.ts";
     import { usePuzzleGenerator } from "./CreateQuestion";
-
     const puzzleDiv = ref<HTMLDivElement | null>(null);
 
     onMounted(() => {
@@ -13,7 +12,7 @@
             }, 0);
         });
     });
-
+    
     usePuzzleGenerator();
     const cstore = useCreateStore();
     const cells = ref<{ [key: string]: number | undefined}>({});

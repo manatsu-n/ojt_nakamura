@@ -97,3 +97,9 @@ export const useMemoStore = defineStore('memo', {
     },
   },
 });
+
+export const useRandomStore = defineStore('random', {
+  state: () => ({
+    random: false as boolean
+  }),
+})
