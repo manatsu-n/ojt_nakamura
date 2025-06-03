@@ -13,14 +13,14 @@ export const useLevelStore = defineStore('level', {
 
 export const useCreateStore = defineStore('create', {
   state: () => ({
-    create: [] as number[],
-    answer: [] as number[],
+    create: [] as number[][],
+    answer: [] as number[][],
   }),
   actions: {
-    setCreate(newCreate: number[]) {
+    setCreate(newCreate: number[][]) {
       this.create = newCreate;
     },
-    setAnswer(newAnswer: number[]) {
+    setAnswer(newAnswer: number[][]) {
       this.answer = newAnswer;
     },
   }
@@ -97,9 +97,3 @@ export const useMemoStore = defineStore('memo', {
     },
   },
 });
-
-export const useRandomStore = defineStore('random', {
-  state: () => ({
-    random: false as boolean
-  }),
-})

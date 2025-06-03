@@ -20,19 +20,25 @@
     const readonlyFlags = ref<{ [key: string]: boolean }>({});
     for (let i = 1; i <= 81; i++) {
         const key = `cell${i}`;
-        readonlyFlags.value[key] = cstore.create[i - 1] !== 0;
-        cells.value[key] = cstore.create[i - 1] !== 0 ? cstore.create[i - 1] : undefined;
+        const row = Math.floor((i - 1) / 9);
+        const col = (i - 1) % 9;
+        const value = cstore.create[row][col];
+        readonlyFlags.value[key] = value !== 0;
+        cells.value[key] = value !== 0 ? value : undefined;
     }
 
     const flagStore = useClearflagStore()
     flagStore.flag=false;
     const filledCount = computed(() => {
-        return Object.entries(cells.value).filter(([key, val]) => {
-            if (val === undefined) return false;
-            const index = Number(key.replace('cell', '')) - 1;
-            return val === cstore.answer[index];
+    return Object.entries(cells.value).filter(([key, val]) => {
+        if (val === undefined) return false;
+        const index = Number(key.replace('cell', '')) - 1;
+        const row = Math.floor(index / 9);
+        const col = index % 9;
+        return val === cstore.answer[row][col];
         }).length;
     });
+
 
     watch(filledCount, (newVal) => {
         if (newVal === 81) {
@@ -111,43 +117,50 @@
     }
 
     function numberInput(num: number) {
-        if (cells.value[key.value] === num) {
-            cells.value[key.value] = undefined;
-        }else{
-            cells.value[key.value] = num;
-            if (cstore.answer[cellINdex.value - 1] !== num) {
-                wrongStore.wrong++; 
-            }else{
-                removeRelatedMemos(num);
-            }
+    if (cells.value[key.value] === num) {
+        cells.value[key.value] = undefined;
+    } else {
+        cells.value[key.value] = num;
+
+        const row = activeCell.value.row - 1;
+        const col = activeCell.value.col - 1;
+
+        if (cstore.answer[row][col] !== num) {
+            wrongStore.wrong++;
+        } else {
+            removeRelatedMemos(num);
         }
     }
+}
+
 
     function removeRelatedMemos(num: number) {
-        for (let i = 1; i <= 81; i++) {
-            const row = Math.floor((i - 1) / 9) + 1;
-            const col = (i - 1) % 9 + 1;
-            const key2 = `cell${i}`;
+    for (let i = 1; i <= 81; i++) {
+        const row = Math.floor((i - 1) / 9) + 1;
+        const col = (i - 1) % 9 + 1;
+        const key2 = `cell${i}`;
 
-            const sameRow = row === activeCell.value.row;
-            const sameCol = col === activeCell.value.col;
-            const sameBlock = rowBlock.value.includes(row) && colBlock.value.includes(col);
+        const sameRow = row === activeCell.value.row;
+        const sameCol = col === activeCell.value.col;
+        const sameBlock = rowBlock.value.includes(row) && colBlock.value.includes(col);
 
-            if (sameRow || sameCol || sameBlock) {
-                memos.value[key2]?.delete(num);
-            }
+        if (sameRow || sameCol || sameBlock) {
+            memos.value[key2]?.delete(num);
         }
     }
+}
+
 
     function getColorClass(row: number, col: number) {
     const index = (row - 1) * 9 + col;
     const key = `cell${index}`;
     const cellValue = cells.value[key];
-    const answerValue = cstore.answer[index - 1];
+    const answerValue = cstore.answer[row - 1][col - 1];
 
     if (cellValue == null || readonlyFlags.value[key]) return '';
     return Number(cellValue) === answerValue ? 'correct' : 'incorrect';
-    }
+}
+
 
     const kesiStore = usekesigomuStore()
     watch(
@@ -165,18 +178,23 @@
     const hintoStore = usehintoStore()
     hintoStore.hinto=3
     watch(
-        () => hintoStore.hinto,
-        (newVal, oldVal) => {
-            if(newVal > oldVal) return;
-            if (readonlyFlags.value[key.value] === false){
-                cells.value[key.value] = cstore.answer[cellINdex.value-1];
-                readonlyFlags.value[key.value] = true;
-                removeRelatedMemos(cstore.answer[cellINdex.value - 1]);
-            } else {
-                hintoStore.hinto = oldVal
-            }
+    () => hintoStore.hinto,
+    (newVal, oldVal) => {
+        if (newVal > oldVal) return;
+        const row = activeCell.value.row - 1;
+        const col = activeCell.value.col - 1;
+        const cellKey = key.value;
+
+        if (!readonlyFlags.value[cellKey]) {
+            cells.value[key.value] = cstore.answer[activeCell.value.row - 1][activeCell.value.col - 1];
+
+            readonlyFlags.value[cellKey] = true;
+            removeRelatedMemos(cstore.answer[row][col]);
+        } else {
+            hintoStore.hinto = oldVal;
         }
-    )
+    }
+    );
 </script>
 
 <template>

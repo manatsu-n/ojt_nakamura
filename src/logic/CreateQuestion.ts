@@ -27,20 +27,26 @@ export function usePuzzleGenerator() {
       createStore.setCreate([...rawCreate]);
       createStore.setAnswer([...rawAnswer]);
 
-      for (let i=0; i<10; i++){
-        const a = Math.floor(9*Math.random())+1
-        const b = Math.floor(9*Math.random())+1
-        rawCreate=rawCreate.map(v => {
-          if (v === a) return b;
-          if (v === b) return a;
-          return v;
-        })
-        rawAnswer=rawAnswer.map(v => {
-          if (v === a) return b;
-          if (v === b) return a;
-          return v;
-        })
+      for (let i = 0; i < 10; i++) {
+        const a = Math.floor(9 * Math.random()) + 1;
+        const b = Math.floor(9 * Math.random()) + 1;
+        rawCreate = rawCreate.map(row =>
+          row.map(v => {
+            if (v === a) return b;
+            if (v === b) return a;
+              return v;
+          })
+        );
+
+        rawAnswer = rawAnswer.map(row =>
+          row.map(v => {
+            if (v === a) return b;
+            if (v === b) return a;
+            return v;
+          })
+        );
       }
+
 
       createStore.setCreate([...rawCreate]);
       createStore.setAnswer([...rawAnswer]);
