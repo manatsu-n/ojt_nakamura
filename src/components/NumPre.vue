@@ -1,9 +1,20 @@
 <script setup lang="ts">
-    import {ref, watch} from "vue"
+    import { ref, watch, onMounted } from "vue"
     import Board from "./BoardView.vue" 
     import Puzzle from "../logic/PuzzleQuestion.vue"
     import { useRouter } from 'vue-router';
     import { useWrongStore, useClearflagStore } from "../stores/level";
+    const puzzles = ref([]);
+
+    onMounted(async () => {
+        try {
+            const res = await fetch('/sudoku.json');
+            if (!res.ok) throw new Error('読み込み失敗');
+            puzzles.value = await res.json();
+        } catch (err) {
+            console.error('読み込みエラー:', err);
+        }
+    });
     const gameover = ref<boolean>(false);
     const gameclear = ref<boolean>(false);
     const router = useRouter();
@@ -55,6 +66,14 @@
             <button @click="gotoselect">難易度選択に戻る</button>
         </div>
     </Teleport>
+    <div>
+    <h1>読み込んだ問題一覧</h1>
+    <ul>
+      <li v-for="p in puzzles" :key="p.id">
+        {{ p.puzzle }}（難易度: {{ p.difficulty }}）
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
