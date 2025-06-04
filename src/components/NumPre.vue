@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {ref, watch} from "vue"
+    import {ref, watch } from "vue"
     import Board from "./BoardView.vue" 
     import Puzzle from "../logic/PuzzleQuestion.vue"
     import { useRouter } from 'vue-router';
