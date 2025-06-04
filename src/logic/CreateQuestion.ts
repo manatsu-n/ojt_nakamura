@@ -1,23 +1,23 @@
-import { useCreateStore, useLevelStore } from '../stores/level.ts';
+import { useCreateStore, useLevelStore, usePuzzlesStore } from '../stores/level.ts';
 import { watch } from "vue"
-import { puzzles } from './puzzle.ts';
-
 
 export function usePuzzleGenerator() {
   const levelStore = useLevelStore();
   const createStore = useCreateStore();
+  const puzzles = usePuzzlesStore().puzzles;
 
   watch(
     () => levelStore.level,
     (newLevel) => {
       if (!newLevel) return;
-      const x = Math.floor(3*Math.random())
-      const newPuzzle = puzzles.find(x => x.level === newLevel)
-      if (!newPuzzle) return;
-      const puzzleList = newPuzzle.puzzles;
-      if (newLevel === null) return;
-      let rawCreate = [...puzzleList[x].create];
-      let rawAnswer = [...puzzleList[x].answer];
+      const filteredPuzzles = puzzles.filter(p => p.difficulty === newLevel);
+      if (filteredPuzzles.length === 0) return;
+
+      const randomIndex = Math.floor(Math.random() * filteredPuzzles.length);
+      const selectedPuzzle = filteredPuzzles[randomIndex];
+
+      let rawCreate = JSON.parse(selectedPuzzle.puzzle);
+      let rawAnswer = JSON.parse(selectedPuzzle.solution);
       
       
       if (Math.random()<0.5){
@@ -30,7 +30,7 @@ export function usePuzzleGenerator() {
       for (let i = 0; i < 10; i++) {
         const a = Math.floor(9 * Math.random()) + 1;
         const b = Math.floor(9 * Math.random()) + 1;
-        rawCreate = rawCreate.map(row =>
+        rawCreate = rawCreate.map((row: number[]) =>
           row.map(v => {
             if (v === a) return b;
             if (v === b) return a;
@@ -38,7 +38,7 @@ export function usePuzzleGenerator() {
           })
         );
 
-        rawAnswer = rawAnswer.map(row =>
+        rawAnswer = rawAnswer.map((row: number[]) =>
           row.map(v => {
             if (v === a) return b;
             if (v === b) return a;

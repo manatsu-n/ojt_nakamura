@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router';
-  import { useLevelStore } from '../stores/level.ts';
+  import { useLevelStore, usePuzzlesStore } from '../stores/level.ts';
+  import { onMounted } from 'vue';
 
   const levelStore = useLevelStore();
   const router = useRouter();
@@ -8,7 +9,16 @@
     levelStore.setLevel(difficulty);
     router.push('/game');
   };
-
+  
+  const puzzlesStore = usePuzzlesStore(); 
+  onMounted(async () => {
+      try {
+          const res = await fetch('http://localhost:3000/api/puzzles')
+          puzzlesStore.puzzles = await res.json()
+      } catch (error) {
+          console.error('Failed to fetch puzzles:', error)
+      }
+  })
 </script>
 
 <template>

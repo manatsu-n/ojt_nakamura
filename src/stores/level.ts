@@ -97,3 +97,21 @@ export const useMemoStore = defineStore('memo', {
     },
   },
 });
+
+export interface PuzzleItem {
+  id: number
+  puzzle: string
+  solution: string
+  difficulty: string
+}
+
+export const usePuzzlesStore = defineStore('puzzles', {
+  state: () => ({
+    puzzles: [] as PuzzleItem[],
+  }),
+  actions: {
+    setPuzzles(newPuzzles: PuzzleItem[]) {
+      this.puzzles = newPuzzles
+    },
+  },
+})
