@@ -13,7 +13,7 @@
   const puzzlesStore = usePuzzlesStore(); 
   onMounted(async () => {
       try {
-          const res = await fetch('http://localhost:3000/api/puzzles')
+          const res = await fetch('http://localhost:3000/')
           puzzlesStore.puzzles = await res.json()
       } catch (error) {
           console.error('Failed to fetch puzzles:', error)
