@@ -13,14 +13,14 @@ export const useLevelStore = defineStore('level', {
 
 export const useCreateStore = defineStore('create', {
   state: () => ({
-    create: [] as number[],
-    answer: [] as number[],
+    create: [] as number[][],
+    answer: [] as number[][],
   }),
   actions: {
-    setCreate(newCreate: number[]) {
+    setCreate(newCreate: number[][]) {
       this.create = newCreate;
     },
-    setAnswer(newAnswer: number[]) {
+    setAnswer(newAnswer: number[][]) {
       this.answer = newAnswer;
     },
   }
@@ -97,3 +97,21 @@ export const useMemoStore = defineStore('memo', {
     },
   },
 });
+
+export interface PuzzleItem {
+  id: number
+  puzzle: string
+  solution: string
+  difficulty: string
+}
+
+export const usePuzzlesStore = defineStore('puzzles', {
+  state: () => ({
+    puzzles: [] as PuzzleItem[],
+  }),
+  actions: {
+    setPuzzles(newPuzzles: PuzzleItem[]) {
+      this.puzzles = newPuzzles
+    },
+  },
+})

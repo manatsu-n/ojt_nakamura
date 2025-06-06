@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {ref, watch} from "vue"
+    import {ref, watch } from "vue"
     import Board from "./BoardView.vue" 
     import Puzzle from "../logic/PuzzleQuestion.vue"
     import { useRouter } from 'vue-router';
@@ -32,7 +32,7 @@
 
 <template>
     <div class="numpre">
-        <div>
+        <div class="left">
             <header>
                 <button @click="gotoselect">難易度選択に戻る</button>
             </header>
@@ -58,6 +58,10 @@
 </template>
 
 <style scoped>
+    .left{
+        margin-right: 25px
+    }
+    
     header{
         display: block;
         margin: 15px;
@@ -95,4 +99,32 @@
         width: 150px;
         height: 30px;
     }    
+
+    @media (max-width: 770px) {
+        .left {
+            margin-right: 0;
+        }
+
+        header {
+            margin: 5px;
+        }
+
+        .numpre {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal {
+            width: 90%;
+            height: auto;
+        }
+
+        h1{
+            margin-top: 30px;
+        }
+
+        .modal>button{
+            margin-bottom: 25px;
+        }    
+    }
 </style>
