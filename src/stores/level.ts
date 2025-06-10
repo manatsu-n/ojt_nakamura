@@ -115,3 +115,9 @@ export const usePuzzlesStore = defineStore('puzzles', {
     },
   },
 })
+
+export const useClearTimeStore = defineStore('clearTime', {
+  state: () => ({
+    clearTime: '' as string
+  }),
+})

@@ -20,6 +20,7 @@ export function usePuzzleGenerator() {
       createStore.setCreate([...rawCreate]);
       createStore.setAnswer([...rawAnswer]);
       levelStore.level=null
+      console.log(selectedPuzzle.id)
     },
     { immediate: true }
   );
