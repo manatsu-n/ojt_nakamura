@@ -39,7 +39,6 @@ const filledCount = computed(() => {
     }).length;
 });
 
-
 watch(filledCount, (newVal) => {
     if (newVal === 81) {
         flagStore.flag = true;

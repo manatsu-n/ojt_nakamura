@@ -17,10 +17,12 @@ export function usePuzzleGenerator() {
       const selectedPuzzle = filteredPuzzles[randomIndex];
       const {rawCreate, rawAnswer} = calcRaw(selectedPuzzle.puzzle, selectedPuzzle.solution);
       
+      createStore.setId(selectedPuzzle.id);
       createStore.setCreate([...rawCreate]);
       createStore.setAnswer([...rawAnswer]);
       levelStore.level=null
-      console.log(selectedPuzzle.id)
+      console.log(createStore.id)
+      console.log(createStore.answer)
     },
     { immediate: true }
   );

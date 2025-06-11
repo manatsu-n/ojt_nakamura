@@ -13,10 +13,14 @@ export const useLevelStore = defineStore('level', {
 
 export const useCreateStore = defineStore('create', {
   state: () => ({
+    id: 0 as number,
     create: [] as number[][],
     answer: [] as number[][],
   }),
   actions: {
+    setId(newId: number) {
+      this.id = newId;
+    },
     setCreate(newCreate: number[][]) {
       this.create = newCreate;
     },
@@ -72,7 +76,8 @@ export const usehintoStore = defineStore('hinto', {
 
 export const useClearflagStore = defineStore('flag', {
   state: () => ({
-    flag: false as boolean
+    flag: false as boolean,
+    flag2: false as boolean,
   }),
 })
 
@@ -118,6 +123,6 @@ export const usePuzzlesStore = defineStore('puzzles', {
 
 export const useClearTimeStore = defineStore('clearTime', {
   state: () => ({
-    clearTime: '' as string
+    rawtime: 0 as number,
   }),
 })

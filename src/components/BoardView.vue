@@ -14,10 +14,10 @@ onMounted(() => {
         elapsed.value++
         if (wrongStore.wrong >= 3 || flagStore.flag) {
             clearInterval(timer)
-            const min = Math.floor(elapsed.value / 60).toString().padStart(2, '0');
-            const sec = (elapsed.value % 60).toString().padStart(2, '0');
-            clearTimeStore.clearTime = `${min}:${sec}`;
-            console.log(clearTimeStore.clearTime);
+            if (flagStore.flag){
+            clearTimeStore.rawtime=elapsed.value;
+            flagStore.flag2=true;
+            }
         }
     }, 1000)
 })
