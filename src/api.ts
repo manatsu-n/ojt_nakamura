@@ -3,7 +3,7 @@ import axios from 'axios';
 // 認証・トークン管理関数
 export const loginAndSetToken = async (username: string, password: string): Promise<void> => {
   try {
-    const response = await axios.post('http://localhost:3000/auth/login', {
+    const response = await axios.post('https://backend-frgnd8hpb3cma4b0.japanwest-01.azurewebsites.net/auth/login', {
       username,
       password,
     });
@@ -21,7 +21,7 @@ export const loginAndSetToken = async (username: string, password: string): Prom
 export const fetchPuzzles = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get('http://localhost:3000/', {
+    const res = await axios.get('https://backend-frgnd8hpb3cma4b0.japanwest-01.azurewebsites.net/', {
       headers: {
         Authorization: `Bearer ${token}`,
       },

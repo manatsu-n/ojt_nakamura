@@ -34,7 +34,7 @@ const cstore = useCreateStore();
 async function updateClearTime(id: number, clearTime: string) {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/clear-times/${id}`, {
+        const response = await fetch(`https://backend-frgnd8hpb3cma4b0.japanwest-01.azurewebsites.net/clear-times/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             }
@@ -45,7 +45,7 @@ async function updateClearTime(id: number, clearTime: string) {
 
         if (clearTime < current.clear_time) {
             const token = localStorage.getItem('token');
-            const postRes = await fetch(`http://localhost:3000/clear-times`, {
+            const postRes = await fetch(`https://backend-frgnd8hpb3cma4b0.japanwest-01.azurewebsites.net/clear-times`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
