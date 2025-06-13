@@ -21,8 +21,6 @@ export function usePuzzleGenerator() {
       createStore.setCreate([...rawCreate]);
       createStore.setAnswer([...rawAnswer]);
       levelStore.level=null
-      console.log(createStore.id)
-      console.log(createStore.answer)
     },
     { immediate: true }
   );

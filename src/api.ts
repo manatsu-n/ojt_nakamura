@@ -10,7 +10,6 @@ export const loginAndSetToken = async (username: string, password: string): Prom
     const token = response.data.access_token;
     localStorage.setItem('token', token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    console.log('ログイン成功');
   } catch (error) {
     console.error('ログイン失敗', error);
     throw error;
