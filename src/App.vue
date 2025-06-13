@@ -3,13 +3,10 @@ import { onMounted } from 'vue';
 import { usePuzzlesStore } from './stores/level.ts';
 import { loginAndSetToken, fetchPuzzles } from './api';
 
-const puzzlesStore = usePuzzlesStore();
-
 onMounted(async () => {
   try {
     await loginAndSetToken('0000', 'password');
-    const puzzles = await fetchPuzzles();
-    puzzlesStore.puzzles = puzzles;
+    usePuzzlesStore().puzzles = await fetchPuzzles();
   } catch (error) {
     console.error('初期処理でエラー', error);
   }

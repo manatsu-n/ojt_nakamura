@@ -14,9 +14,9 @@ onMounted(() => {
         elapsed.value++
         if (wrongStore.wrong >= 3 || flagStore.flag) {
             clearInterval(timer)
-            if (flagStore.flag){
-            clearTimeStore.rawtime=elapsed.value;
-            flagStore.flag2=true;
+            if (flagStore.flag) {
+                clearTimeStore.rawtime = elapsed.value;
+                flagStore.flag2 = true;
             }
         }
     }, 1000)
@@ -34,9 +34,8 @@ onUnmounted(() => {
 
 const wrongStore = useWrongStore()
 
-const kesiStore = usekesigomuStore()
 function kesu() {
-    kesiStore.setKesi(true);
+    usekesigomuStore().setKesi(true);
 }
 
 const hintoStore = usehintoStore()
