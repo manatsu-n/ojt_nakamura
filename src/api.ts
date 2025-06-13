@@ -16,7 +16,6 @@ export const loginAndSetToken = async (username: string, password: string): Prom
   }
 };
 
-// API呼び出し関数（例）
 export const fetchPuzzles = async () => {
   try {
     const token = localStorage.getItem('token');
