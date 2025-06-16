@@ -33,23 +33,19 @@ watch(
 const cstore = useCreateStore();
 async function updateClearTime(id: number, clearTime: string) {
     try {
-        const token = localStorage.getItem('token');
         const response = await fetch(`https://backend-frgnd8hpb3cma4b0.japanwest-01.azurewebsites.net/clear-times/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
+            credentials: 'include',
         });
         const current = await response.json();
         record.value = current.clear_time;
         console.log('現在の記録:', current);
 
         if (clearTime < current.clear_time) {
-            const token = localStorage.getItem('token');
             const postRes = await fetch(`https://backend-frgnd8hpb3cma4b0.japanwest-01.azurewebsites.net/clear-times`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ id: id, clear_time: clearTime }),
             });
