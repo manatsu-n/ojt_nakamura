@@ -13,14 +13,18 @@ export const useLevelStore = defineStore('level', {
 
 export const useCreateStore = defineStore('create', {
   state: () => ({
-    create: [] as number[],
-    answer: [] as number[],
+    id: 0 as number,
+    create: [] as number[][],
+    answer: [] as number[][],
   }),
   actions: {
-    setCreate(newCreate: number[]) {
+    setId(newId: number) {
+      this.id = newId;
+    },
+    setCreate(newCreate: number[][]) {
       this.create = newCreate;
     },
-    setAnswer(newAnswer: number[]) {
+    setAnswer(newAnswer: number[][]) {
       this.answer = newAnswer;
     },
   }
@@ -72,7 +76,8 @@ export const usehintoStore = defineStore('hinto', {
 
 export const useClearflagStore = defineStore('flag', {
   state: () => ({
-    flag: false as boolean
+    flag: false as boolean,
+    flag2: false as boolean,
   }),
 })
 
@@ -97,3 +102,27 @@ export const useMemoStore = defineStore('memo', {
     },
   },
 });
+
+export interface PuzzleItem {
+  id: number
+  puzzle: string
+  solution: string
+  difficulty: string
+}
+
+export const usePuzzlesStore = defineStore('puzzles', {
+  state: () => ({
+    puzzles: [] as PuzzleItem[],
+  }),
+  actions: {
+    setPuzzles(newPuzzles: PuzzleItem[]) {
+      this.puzzles = newPuzzles
+    },
+  },
+})
+
+export const useClearTimeStore = defineStore('clearTime', {
+  state: () => ({
+    rawtime: 0 as number,
+  }),
+})
