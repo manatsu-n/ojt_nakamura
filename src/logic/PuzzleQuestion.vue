@@ -179,8 +179,7 @@ const hintoStore = usehintoStore()
 hintoStore.hinto = 3
 watch(
     () => hintoStore.hinto,
-    (newVal, oldVal) => {
-        if (newVal > oldVal) return;
+    () => {
         const row = activeCell.value.row - 1;
         const col = activeCell.value.col - 1;
         const cellKey = key.value;
@@ -190,10 +189,45 @@ watch(
             readonlyFlags.value[cellKey] = true;
             removeRelatedMemos(cstore.answer[row][col]);
         } else {
-            hintoStore.hinto = oldVal;
+            for (let i = 1; i <= 81; i++) {
+                activeCell.value.col = i % 9 === 0 ? 9 : i % 9
+                activeCell.value.row = Math.floor((i - 1) / 9) + 1
+                if (!readonlyFlags.value[key.value]) {
+                    memos.value[key.value] = new Set<number>();
+                    for (let j = 1; j <= 9; j++) {
+                        memos.value[key.value].add(j);
+                    }
+                    removeUsedNumbers()
+                }
+            }
         }
     }
 );
+
+function removeUsedNumbers() {
+    for (let j = 1; j <= 9; j++) {
+        const key3 = `cell${9 * (activeCell.value.row - 1) + j}`
+        const key4 = `cell${activeCell.value.col + (j - 1) * 9}`
+        if (cells.value[key3]) {
+            memos.value[key.value].delete(cells.value[key3]);
+        }
+        if (cells.value[key4]) {
+            memos.value[key.value].delete(cells.value[key4]);
+        }
+    }
+    for (let j = 1; j <= 9; j++) {
+        const blockCol = Math.floor((activeCell.value.col - 1) / 3)
+        const blockRow = Math.floor((activeCell.value.row - 1) / 3)
+        for (let l = 1; l <= 3; l++) {
+            for (let m = 1; m <= 3; m++) {
+                const key5 = `cell${9 * (3 * blockRow + m - 1) + (blockCol * 3 + l)}`
+                if (cells.value[key5]) {
+                    memos.value[key.value].delete(cells.value[key5]);
+                }
+            }
+        }
+    }
+}
 </script>
 
 <template>
