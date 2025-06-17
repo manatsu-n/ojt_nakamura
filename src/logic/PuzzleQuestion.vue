@@ -64,10 +64,13 @@ const moveDown = () => {
     if (activeCell.value.row < 9) activeCell.value.row++
 }
 
+const memo = useMemoStore();
 const onKeyup = (event: KeyboardEvent) => {
     const key = event.key
     if (/^[1-9]$/.test(key)) {
         numberStore.setNumber(parseInt(key))
+    } else if (key === "Tab") {
+        memo.onoff = memo.onoff === 'on' ? 'off' : 'on'
     }
 }
 
@@ -84,7 +87,6 @@ function changeback(row: number, col: number) {
 }
 
 const numberStore = useNumberStore();
-const memo = useMemoStore();
 const wrongStore = useWrongStore();
 wrongStore.wrong = 0;
 

@@ -9,6 +9,7 @@ const elapsed = ref<number>(0)
 let timer: number = 0
 const flagStore = useClearflagStore();
 const clearTimeStore = useClearTimeStore();
+const wrongStore = useWrongStore()
 onMounted(() => {
     timer = setInterval(() => {
         elapsed.value++
@@ -32,8 +33,6 @@ onUnmounted(() => {
     clearInterval(timer)
 })
 
-const wrongStore = useWrongStore()
-
 function kesu() {
     usekesigomuStore().setKesi(true);
 }
@@ -55,7 +54,6 @@ const memo = useMemoStore();
 function memoswitch() {
     memo.toggle();
 }
-
 </script>
 
 <template>
