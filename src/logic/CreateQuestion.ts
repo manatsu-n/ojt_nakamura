@@ -25,10 +25,6 @@ export function usePuzzleGenerator() {
         rawAnswer = hardPuzzles[x].answer;
       }
       
-      if (Math.random()<0.5){
-        rawCreate.reverse();
-        rawAnswer.reverse();
-      }
       createStore.setCreate([...rawCreate]);
       createStore.setAnswer([...rawAnswer]);
 
